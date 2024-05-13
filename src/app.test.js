@@ -22,6 +22,14 @@ describe("POST /users", () => {
         expect.stringContaining("json")
       );
     });
+
+    test("response should have userId", async () => {
+      const response = await request(app).post("/users").send({
+        username: "username",
+        password: "password",
+      });
+      expect(response.body.userId).toBeDefined();
+    });
   });
   describe("when the username or password is missing", () => {});
 });

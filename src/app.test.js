@@ -12,6 +12,16 @@ describe("POST /users", () => {
       });
       expect(response.statusCode).toBe(200);
     });
+
+    test("should specify JSON in the Content-Type header", async () => {
+      const response = await request(app).post("/users").send({
+        username: "username",
+        password: "password",
+      });
+      expect(response.headers["content-type"]).toEqual(
+        expect.stringContaining("json")
+      );
+    });
   });
   describe("when the username or password is missing", () => {});
 });

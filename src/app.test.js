@@ -33,10 +33,12 @@ describe("POST /users", () => {
   });
   describe("when the username or password is missing", () => {
     test("should respond with a status code of 400", async () => {
-      const response = await request(app).post("/users").send({
-        username: "username",
-      });
-      expect(response.statusCode).toBe(400);
+      const bodyData = [{ username: "username" }, { password: "password" }, {}];
+
+      for (const body of bodyData) {
+        const response = await request(app).post("/users").send(body);
+        expect(response.statusCode).toBe(400);
+      }
     });
   });
 });
